@@ -53,8 +53,8 @@ public class ParkingLotController {
     }
 
     @GetMapping("/slots_by_size")
-    public ResponseEntity<List<CarInfo>> getSlotsBySize(@RequestParam String size) {
-        List<CarInfo> carInfoList = parkingLotService.getSlotsBySize(size);
+    public ResponseEntity<List<CarInfo>> getPlateNumberSortBySize() {
+        List<CarInfo> carInfoList = parkingLotService.getSortBySize();
         return ResponseEntity.ok(carInfoList);
     }
 

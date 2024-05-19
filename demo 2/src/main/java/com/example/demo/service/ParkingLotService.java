@@ -6,14 +6,14 @@ import com.example.demo.repository.HistoryRepository;
 import com.example.demo.repository.SlotRepository;
 import com.example.demo.SizeValidator;
 import com.example.demo.dto.CarInfo;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
-
+@Data
 @Service
 
 public class ParkingLotService {
@@ -107,14 +107,14 @@ public class ParkingLotService {
         }
         return parkingSlots.stream()
                 .map(slot -> new CarInfo(slot.getPlateNumber(), slot.getSize()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    public List<CarInfo> getSlotsBySize(String size) {
+    public List<CarInfo> getSortBySize() {
         List<ParkingSlot> parkingSlots = slotRepository.findByStatusTrue();
         List<CarInfo> carInfoList = parkingSlots.stream()
                 .map(slot -> new CarInfo(slot.getPlateNumber(), slot.getSize()))
-                .collect(Collectors.toList());
+                .toList();
 
         Comparator<CarInfo> sizeComparator = Comparator.comparingInt(carInfo -> {
             switch (carInfo.getSize().toLowerCase()) {
@@ -130,9 +130,8 @@ public class ParkingLotService {
         });
         return carInfoList.stream()
                 .sorted(sizeComparator)
-                .collect(Collectors.toList());
+                .toList();
     }
-
 
 
     public String deleteParkingLot() {
