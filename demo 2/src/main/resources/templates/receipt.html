@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Receipt</title>
+</head>
+<body>
+    <h1>Receipt</h1>
+    <p><strong>Plate Number:</strong> <span th:text="${plateNumber}"></span></p>
+    <p><strong>Entry Time:</strong> <span th:text="${entryTime}"></span></p>
+    <p><strong>Exit Time:</strong> <span th:text="${exitTime}"></span></p>
+    <p><strong>Total Amount:</strong> <span th:text="${totalAmount}"></span> THB</p>
+</body>
+</html>
