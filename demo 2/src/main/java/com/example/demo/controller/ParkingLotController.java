@@ -27,12 +27,10 @@ public class ParkingLotController {
     public String deleteParkingLot() {
         return parkingLotService.deleteParkingLot();
     }
+
     @PostMapping("/park")
-    public ResponseEntity<?> parkCar(@RequestBody Car request) {
+    public ResponseEntity<ParkingSlot> parkCar(@RequestBody Car request) {
         ParkingSlot parkingSlot = parkingLotService.parkCar(request.getRegistrationNumber(), request.getSize());
-        if (parkingSlot == null) {
-            return ResponseEntity.status(400).body("Parking lot is full");
-        }
         return ResponseEntity.ok(parkingSlot);
     }
 

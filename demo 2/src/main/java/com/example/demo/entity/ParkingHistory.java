@@ -25,10 +25,10 @@ public class ParkingHistory {
     @Column(name = "size")
     private String size;
 
-    @Column(name = "time_entry", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "time_entry")
     private LocalDateTime timeEntry;
 
-    @Column(name = "time_exit", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "time_exit")
     private LocalDateTime timeExit;
 
     @Column(name = "parking_fee", columnDefinition = "BIGINT DEFAULT 0")

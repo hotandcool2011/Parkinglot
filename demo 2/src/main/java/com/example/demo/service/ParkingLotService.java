@@ -33,11 +33,6 @@ public class ParkingLotService {
     @Autowired
     private SizeValidator sizeValidator;
 
-
-
-    private boolean validateSize(String size) {
-        return size != null && (size.equals("small") || size.equals("medium") || size.equals("large"));
-    }
     public String createParkingLot(int n) {
         for (int i = 0; i < n; i++) {
             ParkingSlot parkingSlot = new ParkingSlot();
@@ -49,11 +44,11 @@ public class ParkingLotService {
 
     public ParkingSlot parkCar(String registrationNumber, String size) {
         List<ParkingSlot> availableParkingSlots = slotRepository.findByStatusFalse();
-        System.out.println(availableParkingSlots);
+//        System.out.println(availableParkingSlots);
         if (availableParkingSlots.isEmpty()) {
             return null;
         }
-        if (!validateSize(size)) {
+        if (!SizeValidator.validateSize(size)){
             throw new IllegalArgumentException("Invalid slot size. Size must be small, medium, or large.");
         }
 
@@ -104,7 +99,7 @@ public class ParkingLotService {
 
     public List<CarInfo> getPlateNumberBySize(String size) {
         if (!SizeValidator.validateSize(size)){
-            throw new IllegalArgumentException("Wrong spelling");
+            throw new IllegalArgumentException("size not match");
         }
         List<ParkingSlot> parkingSlots = slotRepository.findBySizeAndStatus(size,true);
         if (parkingSlots.isEmpty()) {
@@ -116,7 +111,11 @@ public class ParkingLotService {
     }
 
     public List<CarInfo> getSlotsBySize(String size) {
-        List<CarInfo> carInfoList = getPlateNumberBySize(size);
+        List<ParkingSlot> parkingSlots = slotRepository.findByStatusTrue();
+        List<CarInfo> carInfoList = parkingSlots.stream()
+                .map(slot -> new CarInfo(slot.getPlateNumber(), slot.getSize()))
+                .collect(Collectors.toList());
+
         Comparator<CarInfo> sizeComparator = Comparator.comparingInt(carInfo -> {
             switch (carInfo.getSize().toLowerCase()) {
                 case "small":
