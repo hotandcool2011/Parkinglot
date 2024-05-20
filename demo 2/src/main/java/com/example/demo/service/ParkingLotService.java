@@ -42,11 +42,11 @@ public class ParkingLotService {
         return "Parking lot created with " + n + " slots";
     }
 
-    public ParkingSlot parkCar(String registrationNumber, String size) {
+    public String parkCar(String registrationNumber, String size) {
         List<ParkingSlot> availableParkingSlots = slotRepository.findByStatusFalse();
 //        System.out.println(availableParkingSlots);
         if (availableParkingSlots.isEmpty()) {
-            return null;
+            return "No slot available";
         }
         if (!SizeValidator.validateSize(size)){
             throw new IllegalArgumentException("Invalid slot size. Size must be small, medium, or large.");
@@ -58,7 +58,7 @@ public class ParkingLotService {
         parkingSlot.setSize(size);
         parkingSlot.setTimeEntry(LocalDateTime.now());
         slotRepository.save(parkingSlot);
-        return parkingSlot;
+        return "The car parking in slot number : "+ parkingSlot.getId();
     }
 
     public String leaveSlot(String plateNumber) throws Exception {

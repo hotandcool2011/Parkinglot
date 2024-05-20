@@ -18,41 +18,41 @@ public class ParkingLotController {
     private ParkingLotService parkingLotService;
 
 
-    @PostMapping("/create_parking_lot")
+    @PostMapping("/createParkingLot")
     public String createParkingLot(@RequestParam int n) {
         return parkingLotService.createParkingLot(n);
     }
 
-    @DeleteMapping("/delete_parking_lot")
+    @DeleteMapping("/deleteParkingLot")
     public String deleteParkingLot() {
         return parkingLotService.deleteParkingLot();
     }
 
     @PostMapping("/park")
-    public ResponseEntity<ParkingSlot> parkCar(@RequestBody Car request) {
-        ParkingSlot parkingSlot = parkingLotService.parkCar(request.getRegistrationNumber(), request.getSize());
-        return ResponseEntity.ok(parkingSlot);
+    public ResponseEntity<String> parkCar(@RequestBody Car request) {
+        String response = parkingLotService.parkCar(request.getRegistrationNumber(), request.getSize());
+        return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/leave")
+    @PostMapping("/exitParkingLot")
     public ResponseEntity<String> leaveSlot(@RequestParam String plateNumber) throws Exception {
         String response = parkingLotService.leaveSlot(plateNumber);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/parking_lot_status")
+    @GetMapping("/parkingStatus")
     public ResponseEntity<List<ParkingSlot>> getParkingLotStatus() {
         List<ParkingSlot> parkingSlots = parkingLotService.getParkingLotStatus();
         return ResponseEntity.ok(parkingSlots);
     }
 
-    @GetMapping("/registration_by_size")
+    @GetMapping("/plateNumberBySize")
     public ResponseEntity<List<CarInfo>> getRegistrationBySize(@RequestParam String size) {
         List<CarInfo> carInfoList = parkingLotService.getPlateNumberBySize(size);
         return ResponseEntity.ok(carInfoList);
     }
 
-    @GetMapping("/slots_by_size")
+    @GetMapping("/sortSlotsBySize")
     public ResponseEntity<List<CarInfo>> getPlateNumberSortBySize() {
         List<CarInfo> carInfoList = parkingLotService.getSortBySize();
         return ResponseEntity.ok(carInfoList);
