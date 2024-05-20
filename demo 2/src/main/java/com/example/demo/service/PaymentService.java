@@ -20,8 +20,8 @@ public class PaymentService {
             Duration duration = Duration.between(parkingSlot.getTimeEntry(), parkingSlot.getTimeExit());
             long hours = duration.toHours();
             System.out.println(hours);
-            int fee = 0;
-            long totalfee;
+            int fee =0;
+            long totalFee;
             switch (parkingSlot.getSize()) {
                 case "small" -> fee = 10;
                 case "medium" -> fee = 15;
@@ -29,10 +29,10 @@ public class PaymentService {
             }
 
             if (hours <= 1) {
-                totalfee= 0;
+                totalFee= 0;
             } else {
-                totalfee = fee * (hours - 1);
+                totalFee = fee * (hours - 1);
             }
-            return totalfee;
+            return totalFee;
         }
 }

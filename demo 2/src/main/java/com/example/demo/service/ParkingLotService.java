@@ -9,6 +9,7 @@ import com.example.demo.dto.CarInfo;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDateTime;
@@ -44,7 +45,6 @@ public class ParkingLotService {
 
     public String parkCar(String registrationNumber, String size) {
         List<ParkingSlot> availableParkingSlots = slotRepository.findByStatusFalse();
-//        System.out.println(availableParkingSlots);
         if (availableParkingSlots.isEmpty()) {
             return "No slot available";
         }
@@ -60,7 +60,7 @@ public class ParkingLotService {
         slotRepository.save(parkingSlot);
         return "The car parking in slot number : "+ parkingSlot.getId();
     }
-
+    @Transactional
     public String leaveSlot(String plateNumber) throws Exception {
         List<ParkingSlot> parkingSlotById = slotRepository.findByPlateNumber(plateNumber);
         if (parkingSlotById.isEmpty()) {

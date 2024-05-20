@@ -13,6 +13,4 @@ public interface SlotRepository extends JpaRepository<ParkingSlot, Long> {
     List<ParkingSlot> findByStatusFalse();
     List<ParkingSlot> findBySizeAndStatus(String size, Boolean status);
     List<ParkingSlot> findByStatusTrue();
-
-    List<ParkingSlot> findBySize(String size);
 }

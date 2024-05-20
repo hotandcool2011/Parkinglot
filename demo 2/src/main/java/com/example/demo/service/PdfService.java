@@ -31,7 +31,6 @@ public class PdfService {
             renderer.setDocumentFromString(htmlContent);
             renderer.layout();
             renderer.createPDF(outputStream);
-//            System.out.println(Arrays.toString(outputStream.toByteArray()));
             return outputStream.toByteArray();
         }
     }
