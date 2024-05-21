@@ -12,5 +12,6 @@ public interface SlotRepository extends JpaRepository<ParkingSlot, Long> {
     List<ParkingSlot> findByPlateNumber(String plateNumber);
     List<ParkingSlot> findByStatusFalse();
     List<ParkingSlot> findBySizeAndStatus(String size, Boolean status);
+    List<ParkingSlot> findBySize(String size);
     List<ParkingSlot> findByStatusTrue();
 }

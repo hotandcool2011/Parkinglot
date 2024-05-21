@@ -101,7 +101,7 @@ public class ParkingLotService {
         if (!SizeValidator.validateSize(size)){
             throw new IllegalArgumentException("size not match");
         }
-        List<ParkingSlot> parkingSlots = slotRepository.findBySizeAndStatus(size,true);
+        List<ParkingSlot> parkingSlots = slotRepository.findBySize(size);
         if (parkingSlots.isEmpty()) {
             throw new IllegalArgumentException("No car with size " + size + " parked in the parking lot.");
         }
